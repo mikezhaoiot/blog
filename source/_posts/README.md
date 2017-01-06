@@ -1,0 +1,27 @@
+---
+title: README
+date: 2017-01-06 15:03:00
+tags:
+---
+
+**准备工作:**
+- Hexo: 基于Node的一个静态博客框架，可以方便生成静态网页托管在github上
+- node,js : 用来生成静态页面。 Node.js[官网][1]下载
+- git :本地数据提交至github
+- github : 博客的远程仓库，备份数据
+
+
+  [1]: https://nodejs.org/en/
+  
+  **安装:**
+ - 安装Node.js
+ - 安装Hexo
+	 - npm install -g hexo 
+	 - hexo init  ( 初始化)
+	 - npm install 
+	 - hexo s 
+
+**备份说明**
+
+ - 博客数据备份于github上的Hexo-blog
+ - 定期更新Next主题， 目录中Next为一个git仓库
