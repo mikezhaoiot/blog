@@ -44,7 +44,8 @@ menu:
   #sitemap: /sitemap.xml
   #commonweal: /404.html
   resume: /resume/resume.html
-
+  event: /event/event.html
+  
 # Enable/Disable menu icons.
 # Icon Mapping:
 #   Map a menu item to a specific FontAwesome icon name.
@@ -62,6 +63,8 @@ menu_icons:
   sitemap: sitemap
   commonweal: heartbeat
   resume: at
+  event: street-view
+ #event: map-o
 
 
 
@@ -260,7 +263,7 @@ mathjax:
 
 
 # Swiftype Search API Key
-#swiftype_key:
+#swiftype_key: z3nm7F8inNne9xgGovrY
 
 # Baidu Analytics ID
 #baidu_analytics:
