@@ -75,20 +75,20 @@ deploy:
 # Social links
 social:
   GitHub: https://github.com/wisezhao
-  ProcessOn: http://processon.com
+  #ProcessOn: http://processon.com
 # Social Icons
 social_icons:
   enable: true
   # Icon Mappings
   GitHub: github
-  ProcessOn: pie-chart
+  #ProcessOn: pie-chart
   
  
 # title
 links_title: Links
 links:
-  MacTalk: http://macshuo.com/
-  Title: http://example.com/
+  ProcessOn: http://processon.com
+  Pinterest: https://www.pinterest.com/
 
 #头像设置
 avatar: /images/avatar.png
