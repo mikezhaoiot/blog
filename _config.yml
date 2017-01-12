@@ -75,12 +75,14 @@ deploy:
 # Social links
 social:
   GitHub: https://github.com/wisezhao
-  
+  ProcessOn: http://processon.com
 # Social Icons
 social_icons:
   enable: true
   # Icon Mappings
   GitHub: github
+  ProcessOn: pie-chart
+  
  
 # title
 links_title: Links
