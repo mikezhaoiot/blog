@@ -73,21 +73,21 @@ deploy:
    branch: master
    
 # Social links
-social:
-  GitHub: https://github.com/wisezhao
-  ProcessOn: http://processon.com
-  Pinterest: https://www.pinterest.com/
+#social:
+  #GitHub: https://github.com/wisezhao
+  #ProcessOn: http://processon.com
+  #Pinterest: https://www.pinterest.com/
 # Social Icons
 social_icons:
-  enable: true
+  #enable: true
   # Icon Mappings
-  GitHub: github
-  ProcessOn: futbol-o
-  Pinterest: file-photo-o
+  #GitHub: github
+  #ProcessOn: futbol-o
+  #Pinterest: file-photo-o
   
 # title
-links_title: 友情链接
-友情链接:
+links_title: Links
+links:
   #ProcessOn: http://processon.com
   #Pinterest: https://www.pinterest.com/
   #Qinu: https://portal.qiniu.com/
