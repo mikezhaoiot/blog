@@ -75,22 +75,14 @@ deploy:
 # Social links
 #social:
   #GitHub: https://github.com/wisezhao
-  #ProcessOn: http://processon.com
-  #Pinterest: https://www.pinterest.com/
 # Social Icons
 social_icons:
   #enable: true
   # Icon Mappings
-  #GitHub: github
-  #ProcessOn: futbol-o
-  #Pinterest: file-photo-o
-  
+  #GitHub: github 
 # title
 links_title: Links
 links:
-  #ProcessOn: http://processon.com
-  #Pinterest: https://www.pinterest.com/
-  #Qinu: https://portal.qiniu.com/
   icehe: https://icehe.me/
 #头像设置
 avatar: /images/avatar.png
