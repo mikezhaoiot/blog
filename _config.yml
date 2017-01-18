@@ -77,7 +77,6 @@ social:
   GitHub: https://github.com/wisezhao
   ProcessOn: http://processon.com
   Pinterest: https://www.pinterest.com/
-  Qinu: https://portal.qiniu.com/
 # Social Icons
 social_icons:
   enable: true
@@ -85,16 +84,14 @@ social_icons:
   GitHub: github
   ProcessOn: futbol-o
   Pinterest: file-photo-o
-  Qinu: eye
   
- 
 # title
 links_title: Links
 links:
   #ProcessOn: http://processon.com
   #Pinterest: https://www.pinterest.com/
   #Qinu: https://portal.qiniu.com/
-  博客: https://notes.wanghao.work/
+  icehe: https://icehe.me/
 #头像设置
 avatar: /images/avatar.png
 
