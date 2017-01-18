@@ -86,15 +86,10 @@ social_icons:
  
 # title
 links_title: Links
-relation_title: Relation
 links:
   ProcessOn: http://processon.com
   Pinterest: https://www.pinterest.com/
   Qinu: https://portal.qiniu.com/
-  wanghao: https://notes.wanghao.work/
-relation:
-  wanghao: https://notes.wanghao.work/
-  
 #头像设置
 avatar: /images/avatar.png
 
