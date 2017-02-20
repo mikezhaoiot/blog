@@ -23,7 +23,6 @@ tags:
 
   - 添加SSH  Key
 	-  本地Git已经注册  `·id_rs.pub 文件默认路径：C:\Users\Administrator\.ssh`
-
 ![enter description here][5]
 
 4 .  服务器仓库
@@ -49,6 +48,11 @@ tags:
 
      * Add    :问题描述
 ```
+6 .  配置
+  - [配置文件][6]  : 包括工单配置、通知邮箱、成员
+
+7 . 团队协作流程
+  - <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:800px; height:480px;" src="https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f"></iframe>
 
 
   [1]: http://www.cnblogs.com/jeremylee/p/5626240.html
@@ -56,3 +60,5 @@ tags:
   [3]: http://oimqf80rv.bkt.clouddn.com/GitBlit-1.png
   [4]: http://oimqf80rv.bkt.clouddn.com/GitBlit-2.png
   [5]: http://oimqf80rv.bkt.clouddn.com/GitBlit-3.png
+  [6]: https://github.com/wisezhao/software/tree/master/GitBlitData
+  [7]: %3Ciframe%20id=%22embed_dom%22%20name=%22embed_dom%22%20frameborder=%220%22%20style=%22display:block;width:430px;%20height:320px;%22%20src=%22https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f%22%3E%3C/iframe%3E
