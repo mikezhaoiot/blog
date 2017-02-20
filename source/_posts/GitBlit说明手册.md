@@ -52,7 +52,8 @@ tags:
   - [配置文件][6]  : 包括工单配置、通知邮箱、成员
 
 7 . 团队协作流程
-  - <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:800px; height:600px;" src="https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f"></iframe>
+  - 采用[Ticket模式][7]进行协作开发
+ <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:800px; height:600px;" src="https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f"></iframe>
 
 
   [1]: http://www.cnblogs.com/jeremylee/p/5626240.html
@@ -61,4 +62,4 @@ tags:
   [4]: http://oimqf80rv.bkt.clouddn.com/GitBlit-2.png
   [5]: http://oimqf80rv.bkt.clouddn.com/GitBlit-3.png
   [6]: https://github.com/wisezhao/software/tree/master/GitBlitData
-  [7]: %3Ciframe%20id=%22embed_dom%22%20name=%22embed_dom%22%20frameborder=%220%22%20style=%22display:block;width:430px;%20height:320px;%22%20src=%22https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f%22%3E%3C/iframe%3E
+  [7]: http://www.cnblogs.com/x3d/p/gitblit-ticket.html
