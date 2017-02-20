@@ -52,7 +52,7 @@ tags:
   - [配置文件][6]  : 包括工单配置、通知邮箱、成员
 
 7 . 团队协作流程
-  - <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:800px; height:480px;" src="https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f"></iframe>
+  - <iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:800px; height:600px;" src="https://www.processon.com/embed/mind/57ce82b0e4b0942d7a51906f"></iframe>
 
 
   [1]: http://www.cnblogs.com/jeremylee/p/5626240.html
