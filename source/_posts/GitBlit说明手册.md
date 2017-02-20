@@ -7,26 +7,30 @@ tags:
 
 <!-- more -->
 
- 1. 安装
-	 -  纯 Java 库用来管理、查看和处理 Git 资料库.相当于 Git 的 Java 管理工具.git的管家
-     - [安装步骤][1] 
-2. 登录
-	- `账户名：邮箱前缩写字母， 如：lichy/caizhp/`
-	- `初始密码：123456`
-	- [网址][2] 
-	- 账户登录
+ 1 . 安装
+-  纯 Java 库用来管理、查看和处理 Git 资料库.相当于 Git 的 Java 管理工具.git的管家
+   - [安装步骤][1] 
+
+
+2 . 登录
+  - `账户名：邮箱前缩写字母， 如：lichy/caizhp/`
+  - `初始密码：123456`
+  - [网址][2] 
+  - 账户登录
 	![enter description here][3]
-3. 设置
-	- 语言及克隆协议
+	
+3 . 设置
+  - 语言及克隆协议
 ![enter description here][4]
 
-	- 添加SSH  Key
-		- 本地Git已经注册  `·id_rs.pub 文件默认路径：C:\Users\Administrator\.ssh`
+  - 添加SSH  Key
+	-  本地Git已经注册  `·id_rs.pub 文件默认路径：C:\Users\Administrator\.ssh`
 
 ![enter description here][5]
-4. 服务器仓库
-	- 新建服务器仓库 ：右上角  `new repository`
-	- 克隆仓库至本地  : `git clone + 仓库地址  ` 
+
+4 .  服务器仓库
+ - 新建服务器仓库 ：右上角  `new repository`
+ - 克隆仓库至本地  : `git clone + 仓库地址  ` 
 
 5 . 工作流程
   - git clone  默认是clone 的主分支（master）,一般我们都是在develop上提交代码 
