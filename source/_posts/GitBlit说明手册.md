@@ -4,7 +4,9 @@ date: 2017-02-20 09:52:53
 tags:
 		- 说明手册
 ---
+
 <!-- more -->
+
  1. 安装
 	 -  纯 Java 库用来管理、查看和处理 Git 资料库.相当于 Git 的 Java 管理工具.git的管家
      - [安装步骤][1] 
@@ -20,6 +22,7 @@ tags:
 
 	- 添加SSH  Key
 		- 本地Git已经注册  `·id_rs.pub 文件默认路径：C:\Users\Administrator\.ssh`
+
 ![enter description here][5]
 4. 服务器仓库
 	- 新建服务器仓库 ：右上角  `new repository`
@@ -46,10 +49,8 @@ tags:
 ```
 
 
-
-
   [1]: http://www.cnblogs.com/jeremylee/p/5626240.html
   [2]: http://192.168.2.208:10101/
-  [3]: ./images/qWbxgk2LqhoOEuKd.png!thumbnail.png "qWbxgk2LqhoOEuKd.png!thumbnail.png"
-  [4]: ./images/6urlyQAasW0C4f8Y.png!thumbnail.png "6urlyQAasW0C4f8Y.png!thumbnail.png"
-  [5]: ./images/CrkOFTGPdw8Lkp3t.png!thumbnail.png "CrkOFTGPdw8Lkp3t.png!thumbnail.png"
+  [3]: http://oimqf80rv.bkt.clouddn.com/GitBlit-1.png
+  [4]: http://oimqf80rv.bkt.clouddn.com/GitBlit-2.png
+  [5]: http://oimqf80rv.bkt.clouddn.com/GitBlit-3.png
