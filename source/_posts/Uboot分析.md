@@ -4,6 +4,7 @@ date: 2017-03-17 10:47:01
 tags:
 	底层驱动
 ---
+uboot 简介
 
 <!-- more -->
 
@@ -22,10 +23,11 @@ tags:
                             "2m(kernel)," \
                             "-(root)"
 ```
+![enter description here][1]
  2. do_boot()主要做什么
    - 读取头部，移动内核之加载地址
    - 启动内核
  3. do_bootm_linux()主要做什么
 
 
-
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489745252333.jpg "uboot-0.jpg"
