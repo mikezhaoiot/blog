@@ -30,4 +30,4 @@ uboot 简介
  3. do_bootm_linux()主要做什么
 
 
-  [1]: http://oimqf80rv.bkt.clouddn.com/1489745252333.jpg "uboot-0.jpg"
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489745432581.jpg "uboot-0.jpg"
