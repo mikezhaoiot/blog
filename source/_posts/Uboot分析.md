@@ -13,7 +13,7 @@ tags:
   - 描述uboot各个目录的作用 
 
 ## 配置、编译、链接
-### 1. 编译Uboot
+### 编译Uboot
   - 阅读Makefile 和 README
     - 根据顶层Readme文件，如果要使用开发板`board/<board_name>`,先执行`make <borad_name>_config`命令配置，然后执行`make all`,生成`uboot.bin`文件	
   - JZ2440配置过程 
@@ -21,7 +21,7 @@ tags:
     - `make 100ask24x0_config` 配置
     - `mkae all `  
 	
-### 2. 配置过程
+### 配置过程
    - 在顶层Makefile中可以看到如下代码
 ``` mel
     $RCTREE	:= $(CURDIR)
@@ -49,7 +49,7 @@ tags:
        - `Automatically generated - do not edit`   
        - `#include (configs/100ask24x0.h)`
 
-### 3. 分析编译过程 
+### 分析编译过程 
   - 分析Makefile编译过程，参见[课程笔记][3]
     - 分析结果：首先编译 `cpu/arm920t/start.s`
     - 对于平台/开发板相关的每个目录，每个通用目录都使用它们各自的 Makefile生成相应的库
@@ -57,18 +57,18 @@ tags:
     - ELF格式的Uboot,后面Makefile还会将它转换为二进制格式
 
 ## 启动过程分析
-### 1. 第1阶段 
+### 第1阶段 
    - 通过分析Makefile文件，uboot第一个文件`cpu/arm920t/start.S`,该文件中主要是硬件设备初始化，
    - 将CPU的工作模式设为管理模式，关闭WATCHDOG, 设置FCLK、HCLK、PCLK的比例、关闭MMU、CACHE 
    - 为加载Bootloader的第二阶段代码准备RAM空间，代码`board/100ask24x0/lowlevel_init.S`
    - 复制Boootloader的第二阶段代码到RAM空间中
    - 设置好栈，跳转到第二阶段代码的C入口点，跳转之前，还要清除BSS段
 
-### 2. 第2阶段
+### 第2阶段
    - 主要从`lib_arm/board.c`中的start_armboot函数开始, 此处需要添加流程图
 
 ## Uboot命令
-### 1. 命令格式
+### 命令格式
    - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
    - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
 
@@ -79,7 +79,7 @@ tags:
      - usage : 简短的使用说明，这是个字符串
      - help : 较详细的使用说明，这是个字符串
 
-### 2. 命令分析
+### 命令分析
 
    - 宏U_BOOT_CMD在`include、command.h`中定义，如下所示
 
@@ -107,7 +107,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 
 ## 启动内核
 
-### 1. 分区介绍
+### 分区介绍
    - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
 
 ``` stylus
@@ -121,7 +121,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 ![enter description here][4]
 
 
-### 2. do_boot() do_bootm_linux()主要做什么
+### do_boot() do_bootm_linux()主要做什么
    - do_boot() 主要读取头部，移动内核至加载地址 
    - > uboot中的环境变量 bootcmd=nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0
 
@@ -129,7 +129,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
      - 加载地址`0x30007FC0`  入口地址`0x30008000`      
    - do_bootm_linux() 启动内核
 
-### 3. 内核设置启动参数
+### 内核设置启动参数
    - Uboot通过标记列表向内核传递参数，命令行标记的示例代码就是取自Uboot中的`setup_memory_tags、setup_commandline_tag`它们都是在`lib_arm/armlinux.c`中定义
    - 对于ARM架构的CPU，都是通过`lib_arm/armlinux.c`中的`do_bootm_limux`函数来启动内核。这个函数中，设置标记列表，最后通过`theKernel (0, bd->bi_arch_number, bd->bi_boot_params)`调用内核。
       - theKernel  指向内核存放的地址（ARM架构的CPU，通常是0x30008000）
