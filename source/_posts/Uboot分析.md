@@ -73,9 +73,8 @@ tags:
 
 ## <font color=#fea304>Uboot命令</font>
 
-  - 课程 : **4.5 u-boot分析之u-boot命令实现**
-
 ### 命令格式 
+  - 课程 : **4.5 u-boot分析之u-boot命令实现**
   - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
   - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
 
@@ -114,11 +113,9 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 
 ## <font color=#fea304>启动内核</font>
 
-  - 课程 ：**4.6 u-boot分析_uboot启动内核**
-
 ### 分区介绍
-
-   - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
+  - 课程 ：**4.6 u-boot分析_uboot启动内核**
+  - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
 
 ``` stylus
 #define MTDIDS_DEFAULT "nand0=nandflash0"
