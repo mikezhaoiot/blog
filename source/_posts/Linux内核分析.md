@@ -13,6 +13,7 @@ tags:
  - 参考嵌入式应用开发手册- 第16章
 
 ## 内核配置、分析、编译
+
 ### 编译内核
   - 阅读Makefile 和 README 
   - 配置内核三种方法
@@ -29,14 +30,19 @@ tags:
      - 打补丁 `patch -p1 < ../内核补丁`
      - config_ok 复制为.config 
      - make menuconfig : 裁剪内核
-     - make uImage        
+     - make uImage  
+      
 ## 配置过程
   - 配置的结果，生成`.config`文件
+
 ## 编译过程
   - 具体编译过程参见 : [课程笔记][2]
+
 ## 内核启动
   - 具体内核启动参见 ：[课程笔记][3]
+
 ## 移植内核
+
 ### 框架介绍
   - **编译内核**
     - 使用版本`Linux-3.4.2`
@@ -61,6 +67,7 @@ tags:
         - 生效方法：系统重启  
         - 有效期限：永久有效
         - 用户局限：对所有用户
+
 ### 修改分区及制作根文件系统
   - **修改分区**
     - 相关文件` arch/arm/mach-s3c24xx/common-smdk.c` 
@@ -71,6 +78,7 @@ tags:
     - 构建目录
     - 制作文件
       - `mkfs.jffs2 -n -s 2048  -e 128KiB -d fs_mini -o fs_mini.jffs2` 
+
 ### 内核裁剪
   - **主要裁剪部分**
     - 单板配置裁剪
@@ -85,7 +93,7 @@ tags:
      - [详细说明][5] 
 
 
-  [1]: http://oimqf80rv.bkt.clouddn.com/%E5%86%85%E6%A0%B8%E5%88%86%E6%9E%90-1.jpg "内核分析-1.jpg"
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489821379782.jpg "内核分析-0.jpg"
   [2]: http://pan.baidu.com/s/1slPfXKT
   [3]: http://pan.baidu.com/s/1nvjWCYX
   [4]: http://blog.csdn.net/zqixiao_09/article/details/51834791
