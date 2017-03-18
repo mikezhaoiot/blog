@@ -49,7 +49,7 @@ tags:
        - `Automatically generated - do not edit`   
        - `#include (configs/100ask24x0.h)`
 
-### 分析编译过程 
+### 编译过程 
   - 分析Makefile编译过程，参见[课程笔记][3]
     - 分析结果：首先编译 `cpu/arm920t/start.s`
     - 对于平台/开发板相关的每个目录，每个通用目录都使用它们各自的 Makefile生成相应的库
