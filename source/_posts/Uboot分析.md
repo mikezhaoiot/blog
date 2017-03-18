@@ -9,10 +9,10 @@ tags:
 
 <!-- more -->
 
-## 简介
+## <font color=#fea304>简介</font>
   - 描述uboot各个目录的作用 
 
-## 配置、编译、链接
+## <font color=#fea304>配置、编译、链接</font>
 ### 编译Uboot
   - 阅读Makefile 和 README
     - 根据顶层Readme文件，如果要使用开发板`board/<board_name>`,先执行`make <borad_name>_config`命令配置，然后执行`make all`,生成`uboot.bin`文件	
@@ -56,7 +56,7 @@ tags:
     - 前面生成的.o、.a文件按照`board/100ask24x0/config.mk` 文件中指定的代码段起始地址,`board/100ask24x0/u-boot.lds`链接脚本进行链接
     - ELF格式的Uboot,后面Makefile还会将它转换为二进制格式
 
-## 启动过程分析
+## <font color=#fea304>启动过程分析</font>
 ### 第1阶段 
    - 通过分析Makefile文件，uboot第一个文件`cpu/arm920t/start.S`,该文件中主要是硬件设备初始化，
    - 将CPU的工作模式设为管理模式，关闭WATCHDOG, 设置FCLK、HCLK、PCLK的比例、关闭MMU、CACHE 
@@ -67,7 +67,7 @@ tags:
 ### 第2阶段
    - 主要从`lib_arm/board.c`中的start_armboot函数开始, 此处需要添加流程图
 
-## Uboot命令
+## <font color=#fea304>Uboot命令</font>
 ### 命令格式
    - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
    - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
@@ -105,7 +105,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 ```
   - 程序中就是根据命名的名字在内存段`_u_boot_cmd_start ~ _boot_cmd_end`找到他的cmd_tbl_t结构，然后调用它的函数,(请参考common/command.c中的`find_cmd`函数)
 
-## 启动内核
+## <font color=#fea304>启动内核<font>
 
 ### 分区介绍
    - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
