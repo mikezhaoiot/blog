@@ -10,8 +10,9 @@ uboot 简介
 
 ## 简介
   - 描述uboot各个目录的作用
+
 ## Makefile结构分析
-**1. 配置**
+### 1. 配置
   - 阅读Makefile 和 README
     - 根据顶层Readme文件，如果要使用开发板`board/<board_name>`,先执行`make <borad_name>_config`命令配置，然后执行`make all`,生成`uboot.bin`文件	
   - JZ2440配置过程 
