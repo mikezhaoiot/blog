@@ -14,6 +14,7 @@ tags:
 
 ## <font color=#fea304>配置、编译、链接</font>
 ### 编译Uboot
+  - 课程 ：**4.1 u-boot分析之编译体验**
   - 阅读Makefile 和 README
     - 根据顶层Readme文件，如果要使用开发板`board/<board_name>`,先执行`make <borad_name>_config`命令配置，然后执行`make all`,生成`uboot.bin`文件	
   - JZ2440配置过程 
@@ -22,7 +23,8 @@ tags:
     - `mkae all `  
 	
 ### 配置过程
-   - 在顶层Makefile中可以看到如下代码
+  - 课程 : **4.2 u-boot分析之Makefile结构分析**
+  - 在顶层Makefile中可以看到如下代码
 ``` mel
     $RCTREE	:= $(CURDIR)
     ... ...
@@ -49,7 +51,7 @@ tags:
        - `Automatically generated - do not edit`   
        - `#include (configs/100ask24x0.h)`
 
-### 编译过程 
+### 编译过程
   - 分析Makefile编译过程，参见[课程笔记][3]
     - 分析结果：首先编译 `cpu/arm920t/start.s`
     - 对于平台/开发板相关的每个目录，每个通用目录都使用它们各自的 Makefile生成相应的库
@@ -58,30 +60,33 @@ tags:
 
 ## <font color=#fea304>启动过程分析</font>
 ### 第1阶段 
-   - 通过分析Makefile文件，uboot第一个文件`cpu/arm920t/start.S`,该文件中主要是硬件设备初始化，
-   - 将CPU的工作模式设为管理模式，关闭WATCHDOG, 设置FCLK、HCLK、PCLK的比例、关闭MMU、CACHE 
-   - 为加载Bootloader的第二阶段代码准备RAM空间，代码`board/100ask24x0/lowlevel_init.S`
-   - 复制Boootloader的第二阶段代码到RAM空间中
-   - 设置好栈，跳转到第二阶段代码的C入口点，跳转之前，还要清除BSS段
+  - 课程 : **4.3 u-boot分析之源码第1阶段**
+  - 通过分析Makefile文件，uboot第一个文件`cpu/arm920t/start.S`,该文件中主要是硬件设备初始化，
+  - 将CPU的工作模式设为管理模式，关闭WATCHDOG, 设置FCLK、HCLK、PCLK的比例、关闭MMU、CACHE 
+  - 为加载Bootloader的第二阶段代码准备RAM空间，代码`board/100ask24x0/lowlevel_init.S`
+  - 复制Boootloader的第二阶段代码到RAM空间中
+  - 设置好栈，跳转到第二阶段代码的C入口点，跳转之前，还要清除BSS段
 
 ### 第2阶段
-   - 主要从`lib_arm/board.c`中的start_armboot函数开始, 此处需要添加流程图
+  - 课程 : **4.4 u-boot分析之源码第2阶段**
+  - 主要从`lib_arm/board.c`中的start_armboot函数开始, 此处需要添加流程图
 
 ## <font color=#fea304>Uboot命令</font>
-### 命令格式
-   - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
-   - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
+  - 课程 : **4.5 u-boot分析之u-boot命令实现**
+### 命令格式 
+  - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
+  - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
 
-     - name : 命名的名字，注意，它不是一个字符串（不要用双括号括起来）
-     - maxargs : 最大参数的个数
-     - repeatable : 命令是否可以重复，可重复是指运行一个命令后，下次敲回车即可再次运行
-     - command ：对应的函数指针，类型为`(*cmd)(struct cmd_tbl_s*,int,int,char*[])`
-     - usage : 简短的使用说明，这是个字符串
-     - help : 较详细的使用说明，这是个字符串
+    - name : 命名的名字，注意，它不是一个字符串（不要用双括号括起来）
+    - maxargs : 最大参数的个数
+    - repeatable : 命令是否可以重复，可重复是指运行一个命令后，下次敲回车即可再次运行
+    - command ：对应的函数指针，类型为`(*cmd)(struct cmd_tbl_s*,int,int,char*[])`
+    - usage : 简短的使用说明，这是个字符串
+    - help : 较详细的使用说明，这是个字符串
 
 ### 命令分析
 
-   - 宏U_BOOT_CMD在`include、command.h`中定义，如下所示
+  - 宏U_BOOT_CMD在`include、command.h`中定义，如下所示
 
 ``` dos
 #define U_BOOT_CMD(name,maxargs,rep,cmd,usage,help) \
@@ -105,9 +110,10 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 ```
   - 程序中就是根据命名的名字在内存段`_u_boot_cmd_start ~ _boot_cmd_end`找到他的cmd_tbl_t结构，然后调用它的函数,(请参考common/command.c中的`find_cmd`函数)
 
-## <font color=#fea304>启动内核<font>
-
+## <font color=#fea304>启动内核</font>
+  - 课程 ：**4.6 u-boot分析_uboot启动内核**
 ### 分区介绍
+
    - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
 
 ``` stylus
