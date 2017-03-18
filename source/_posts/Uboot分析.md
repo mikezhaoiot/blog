@@ -10,7 +10,7 @@ tags:
 <!-- more -->
 
 ## 简介
-  - 描述uboot各个目录的作用 :wink:
+  - 描述uboot各个目录的作用 
 
 ## 配置、编译、链接
 ### 1. 编译Uboot
@@ -137,7 +137,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
       - bi_boot_paras  标记列表的开始地址 	
 
 
-  [1]: http://oimqf80rv.bkt.clouddn.com/1489805982469.jpg "Linux-96.png"
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489806728251.jpg "图1.jpg"
   [2]: http://pan.baidu.com/s/1qXIgDA0
   [3]: http://pan.baidu.com/s/1hs1IkIS
-  [4]: http://oimqf80rv.bkt.clouddn.com/1489805982319.jpg "uboot-1.jpg"
+  [4]: http://oimqf80rv.bkt.clouddn.com/1489806728224.jpg "uboot-1.jpg"
