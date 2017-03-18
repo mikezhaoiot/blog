@@ -72,7 +72,9 @@ tags:
   - 主要从`lib_arm/board.c`中的start_armboot函数开始, 此处需要添加流程图
 
 ## <font color=#fea304>Uboot命令</font>
+
   - 课程 : **4.5 u-boot分析之u-boot命令实现**
+
 ### 命令格式 
   - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
   - > U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
@@ -111,7 +113,9 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
   - 程序中就是根据命名的名字在内存段`_u_boot_cmd_start ~ _boot_cmd_end`找到他的cmd_tbl_t结构，然后调用它的函数,(请参考common/command.c中的`find_cmd`函数)
 
 ## <font color=#fea304>启动内核</font>
+
   - 课程 ：**4.6 u-boot分析_uboot启动内核**
+
 ### 分区介绍
 
    - Linux分区源代码中已固定，参见`include\configs\100ask24x0.h`
