@@ -9,6 +9,7 @@ uboot 简介
 <!-- more -->
 
 ## 简介
+  - 描述uboot各个目录的作用
 ## Makefile结构分析
 **1. 配置**
   - 阅读Makefile 和 README
@@ -40,6 +41,7 @@ uboot 简介
 
 **2. 第2阶段**
    - 主要从`lib_arm/board.c`中的start_armboot函数开始
+
 ## Uboot命令
 **1. 命令格式**
    - 内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过`U_BOOT_CMD`宏来定义，格式如下 
@@ -77,14 +79,18 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
 
 
 **2. do_boot() do_bootm_linux()主要做什么**
-   - 读取头部，移动内核之加载地址
-   - 启动内核
+   - do_boot() 主要读取头部，移动内核至加载地址 
+   - > uboot中的环境变量 bootcmd=nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0
+     - 从nand读出内核，
+     - 加载地址`0x30007FC0`  入口地址`0x30008000`      
+   - do_bootm_linux() 启动内核
 
 **3. 内核设置启动参数**
    - Uboot通过标记列表向内核传递参数，命令行标记的示例代码就是取自Uboot中的`setup_memory_tags、setup_commandline_tag`它们都是在`lib_arm/armlinux.c`中定义
    - 对于ARM架构的CPU，都是通过`lib_arm/armlinux.c`中的`do_bootm_limux`函数来启动内核。这个函数中，设置标记列表，最后通过`theKernel (0, bd->bi_arch_number, bd->bi_boot_params)`调用内核。
+      - theKernel  指向内核存放的地址（ARM架构的CPU，通常是0x30008000）
+      - bd-bi_arch_number  前面'board_init'函数设置的机器类型ID
+      - bi_boot_paras  标记列表的开始地址 	
 
 
-  [1]: http://oimqf80rv.bkt.clouddn.com/1489745432581.jpg "uboot-0.jpg"
-
-
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489758228741.jpg "uboot-1.jpg"
