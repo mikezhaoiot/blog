@@ -4,12 +4,13 @@ date: 2017-03-17 10:47:01
 tags:
 	底层驱动
 ---
-uboot 简介
+
+![enter description here][1]
 
 <!-- more -->
 
 ## 简介
-  - 描述uboot各个目录的作用
+  - 描述uboot各个目录的作用 :wink:
 
 ## 配置、编译、链接
 ### 1. 编译Uboot
@@ -34,7 +35,7 @@ uboot 简介
    - `./mkconfig  100ask24x0  arm arm920t 100ask24x0 NULL s3c24x0` 
    - 再来看看mkconfig的作用，在mkconfig文件开头第6行给出了用法：
    - `# Parameters:  Target  Architecture  CPU  Board [VENDOR] [SOC]`
-   - 详细mkconfig分析过程，参见[课程笔记][1]
+   - 详细mkconfig分析过程，参见[课程笔记][2]
      - 分析结果：创建到平台/开发板相关的头文件链接
        - `ln -s asm-arm asm`
        - `ln -s arch-s3c24x0 asm-arm/arch
@@ -49,7 +50,7 @@ uboot 简介
        - `#include (configs/100ask24x0.h)`
 
 ### 3. 分析编译过程 
-  - 分析Makefile编译过程，参见[课程笔记][2]
+  - 分析Makefile编译过程，参见[课程笔记][3]
     - 分析结果：首先编译 `cpu/arm920t/start.s`
     - 对于平台/开发板相关的每个目录，每个通用目录都使用它们各自的 Makefile生成相应的库
     - 前面生成的.o、.a文件按照`board/100ask24x0/config.mk` 文件中指定的代码段起始地址,`board/100ask24x0/u-boot.lds`链接脚本进行链接
@@ -117,7 +118,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
                             "-(root)"
 ```
 
-![enter description here][3]
+![enter description here][4]
 
 
 ### 2. do_boot() do_bootm_linux()主要做什么
@@ -136,7 +137,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
       - bi_boot_paras  标记列表的开始地址 	
 
 
-  [1]: http://pan.baidu.com/s/1qXIgDA0
-  [2]: http://pan.baidu.com/s/1hs1IkIS
-  [3]: http://oimqf80rv.bkt.clouddn.com/1489758228741.jpg "uboot-1.jpg"
-
+  [1]: http://oimqf80rv.bkt.clouddn.com/1489805982469.jpg "Linux-96.png"
+  [2]: http://pan.baidu.com/s/1qXIgDA0
+  [3]: http://pan.baidu.com/s/1hs1IkIS
+  [4]: http://oimqf80rv.bkt.clouddn.com/1489805982319.jpg "uboot-1.jpg"
