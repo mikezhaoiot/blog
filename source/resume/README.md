@@ -14,4 +14,4 @@
 - 使用html重写简历
 
 
-  [1]: ./images/test.png "test.png"
+  [1]: http://oimqf80rv.bkt.clouddn.com/1490165758679.jpg "网页5.png"
