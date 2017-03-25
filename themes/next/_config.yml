@@ -269,10 +269,10 @@ mathjax:
 #baidu_analytics:
 
 # Duoshuo ShortName
-#duoshuo_shortname: zhaomm
+duoshuo_shortname: zhaomm
 
 # Disqus
-disqus_shortname: https-wisezhao-github-io 
+#disqus_shortname: https-wisezhao-github-io 
 
 # Hypercomments
 #hypercomments_id:
@@ -284,7 +284,7 @@ disqus_shortname: https-wisezhao-github-io
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare: true
+# baidushare: true
 ##  type: button
 
 # Share
