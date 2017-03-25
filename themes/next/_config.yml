@@ -284,8 +284,8 @@ disqus_shortname: https-wisezhao-github-io
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare: true
-    type: button
+#baidushare: true
+##  type: button
 
 # Share
 #jiathis:
