@@ -45,7 +45,7 @@ menu:
   #commonweal: /404.html
   resume: /resume/resume.html
   event: /event/event.html
-  guestbook: /guestbook
+  #guestbook: /guestbook
   
 # Enable/Disable menu icons.
 # Icon Mapping:
