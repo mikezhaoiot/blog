@@ -2,6 +2,10 @@
 title: test jiami
 date: 2017-03-25 13:44:34
 tags:
+keywords:
+    - Hexo
+    - 加密
+password: password
 ---
 
 
