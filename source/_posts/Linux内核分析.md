@@ -59,7 +59,7 @@ tags:
     - make uImage    
   - **安装交叉编译器**
     - 查看版本 : `arm-linux-gcc -v` 
-    - 解压 `sudo tar xjf arm-linux-gcc-4.3.2.tar.bz2 -C`
+    - 解压 `sudo tar xjf arm-linux-gcc-4.3.2.tar.bz2 -C /`
     - 设置环境变量
       - 查看环境变量`echo $PATH`
       - 方法1 
