@@ -1,6 +1,6 @@
 <header class="post-header">
 
-	<{% if theme.seo %}h2{% else %}h1{% endif %} class="post-title" itemprop="name headline">{{ page.title }}</{% if theme.seo %}h2{% else %}h1{% endif %}>
+	<h2 class="post-title" itemprop="name headline">{{ page.title }}</h2>
 
 {% if page.description %}
 	<div class="post-meta">

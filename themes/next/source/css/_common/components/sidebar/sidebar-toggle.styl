@@ -1,9 +1,9 @@
 .sidebar-toggle {
   position: fixed;
-  right: $b2t-position-right;
+  right: 50px;
   bottom: 45px;
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   padding: 5px;
   background: $black-deep;
   line-height: 0;
@@ -12,12 +12,10 @@
   -webkit-transform: translateZ(0);
 
   +tablet() {
-    fixbutton() if hexo-config('sidebar.onmobile');
-    hide() if not hexo-config('sidebar.onmobile');
+    display: none;
   }
   +mobile() {
-    fixbutton() if hexo-config('sidebar.onmobile');
-    hide() if not hexo-config('sidebar.onmobile');
+    display: none;
   }
 }
 

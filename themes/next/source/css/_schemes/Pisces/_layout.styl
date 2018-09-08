@@ -101,17 +101,23 @@
 
 .footer-inner {
   width: $main-desktop;
-  padding-left: 260px;
+
+  &:before {
+    content: " ";
+    float: left;
+    width: 260px;
+    min-height: 50px;
+  }
 
   +tablet() {
     width: auto;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+
+    &:before { display: none; }
   }
   +mobile() {
     width: auto;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+
+    &:before { display: none; }
   }
 }
 
@@ -122,9 +128,6 @@
   .content-wrap { float: left; }
   .sidebar { float: right; }
 
-  .footer-inner {
-    padding-left: 0;
-    padding-right: 260px;
-  }
+  .footer-inner:before { float: right; }
 }
 
