@@ -15,15 +15,15 @@ tags:
   - `初始密码：123456`
   - [网址][2] 
   - 账户登录
-	![enter description here][3]
+    ![GitBlit-1.png](http://www.wailian.work/images/2018/09/09/GitBlit-1.png)
 	
 # 设置
   - 语言及克隆协议
-![enter description here][4]
+![GitBlit-2.png](http://www.wailian.work/images/2018/09/09/GitBlit-2.png)
 
   - 添加SSH  Key
 	-  本地Git已经注册  `·id_rs.pub 文件默认路径：C:\Users\Administrator\.ssh`
-![enter description here][5]
+![GitBlit-3.png](http://www.wailian.work/images/2018/09/09/GitBlit-3.png)
 
 # 服务器仓库
  - 新建服务器仓库 ：右上角  `new repository`

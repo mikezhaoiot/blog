@@ -5,7 +5,7 @@ tags:
 	底层驱动
 ---
 
-![enter description here][1]
+![Uboot-00.jpg](http://www.wailian.work/images/2018/09/09/Uboot-00.jpg)
 
 <!-- more -->
 
@@ -125,7 +125,7 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
                             "-(root)"
 ```
 
-![enter description here][4]
+![Uboot-01.jpg](http://www.wailian.work/images/2018/09/09/Uboot-01.jpg)
 
 
 ### do_boot() do_bootm_linux()主要做什么
@@ -144,7 +144,5 @@ cmd_tbl_t __u_boot_cmd_##name Struct_Section = {#name, maxargs, rep, cmd, usage,
       - bi_boot_paras  标记列表的开始地址 	
 
 
-  [1]: http://oimqf80rv.bkt.clouddn.com/1489806728251.jpg "图1.jpg"
   [2]: http://pan.baidu.com/s/1qXIgDA0
   [3]: http://pan.baidu.com/s/1hs1IkIS
-  [4]: http://oimqf80rv.bkt.clouddn.com/1489806728224.jpg "uboot-1.jpg"
