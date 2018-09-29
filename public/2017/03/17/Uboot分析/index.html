@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="底层驱动," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="底层驱动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uboot分析">
+<meta property="og:url" content="http://yoursite.com/2017/03/17/Uboot分析/index.html">
+<meta property="og:site_name" content="手艺人">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.wailian.work/images/2018/09/09/Uboot-00.jpg">
+<meta property="og:image" content="http://www.wailian.work/images/2018/09/09/Uboot-01.jpg">
+<meta property="og:updated_time" content="2018-09-09T09:41:05.477Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Uboot分析">
+<meta name="twitter:image" content="http://www.wailian.work/images/2018/09/09/Uboot-00.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/17/Uboot分析/"/>
+
+
+
+
+
+  <title>Uboot分析 | 手艺人</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d57341a99a7648edda40e51545753a7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">手艺人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resume">
+          <a href="/resume/resume.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-at"></i> <br />
+            
+            简历
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/Uboot分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mike">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="手艺人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Uboot分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T10:47:01+08:00">
+                2017-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/17/Uboot分析/" class="leancloud_visitors" data-flag-title="Uboot分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://www.wailian.work/images/2018/09/09/Uboot-00.jpg" alt="Uboot-00.jpg"></p>
+<a id="more"></a>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><font color="#fea304">简介</font></h2><ul>
+<li>描述uboot各个目录的作用 </li>
+</ul>
+<h2 id="配置、编译、链接"><a href="#配置、编译、链接" class="headerlink" title="配置、编译、链接"></a><font color="#fea304">配置、编译、链接</font></h2><h3 id="编译Uboot"><a href="#编译Uboot" class="headerlink" title="编译Uboot"></a>编译Uboot</h3><ul>
+<li>课程 ：<strong>4.1 u-boot分析之编译体验</strong></li>
+<li>阅读Makefile 和 README<ul>
+<li>根据顶层Readme文件，如果要使用开发板<code>board/&lt;board_name&gt;</code>,先执行<code>make &lt;borad_name&gt;_config</code>命令配置，然后执行<code>make all</code>,生成<code>uboot.bin</code>文件    </li>
+</ul>
+</li>
+<li>JZ2440配置过程 <ul>
+<li><code>u-boot-1.16</code> 通过 <code>patch -p1 &lt; ../u-boot-1.16_jz2440.patch</code> 打补丁</li>
+<li><code>make 100ask24x0_config</code> 配置</li>
+<li><code>mkae all</code>  </li>
+</ul>
+</li>
+</ul>
+<h3 id="配置过程"><a href="#配置过程" class="headerlink" title="配置过程"></a>配置过程</h3><ul>
+<li>课程 : <strong>4.2 u-boot分析之Makefile结构分析</strong></li>
+<li><p>在顶层Makefile中可以看到如下代码</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$RCTREE	:= $(CURDIR)</span><br><span class="line">... ...</span><br><span class="line">MKCONFIG	:= $(SRCTREE)/mkconfig</span><br><span class="line">... ...</span><br><span class="line">smdk2410_config : unconfig </span><br><span class="line">	@$(MKCONFIG) $(@:_config=) arm arm920t <span class="number">100</span>ask24x0 NULL s3c24x0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>假定在u-boot-1.16的根目录下编译，则其中的MKCONFIG就是根目录下的mkconfig文件。$(@:_config=)的结果就是将<code>100ask24x0_config</code>中的<code>_config</code>去掉，结果为<code>100ask24x0</code>,所以<code>make 100ask24x0_config</code>实际上就是执行如下命令:</li>
+<li><code>./mkconfig  100ask24x0  arm arm920t 100ask24x0 NULL s3c24x0</code> </li>
+<li>再来看看mkconfig的作用，在mkconfig文件开头第6行给出了用法：</li>
+<li><code># Parameters:  Target  Architecture  CPU  Board [VENDOR] [SOC]</code></li>
+<li>详细mkconfig分析过程，参见<a href="http://pan.baidu.com/s/1qXIgDA0" target="_blank" rel="noopener">课程笔记</a><ul>
+<li>分析结果：创建到平台/开发板相关的头文件链接<ul>
+<li><code>ln -s asm-arm asm</code></li>
+<li>`ln -s arch-s3c24x0 asm-arm/arch</li>
+<li><code>ln -s proc-armv asm-arm/proc</code> </li>
+</ul>
+</li>
+<li>创建顶层Makefile包含的文件<code>include/config.mk</code><ul>
+<li><code>ARCH = arm</code></li>
+<li><code>CPU = arm920t</code></li>
+<li><code>BOARD = 100ASK240</code></li>
+<li><code>SOC = s3c24x0</code></li>
+</ul>
+</li>
+<li>创建开发板相关的头文件<code>include/config.h</code><ul>
+<li><code>Automatically generated - do not edit</code>   </li>
+<li><code>#include (configs/100ask24x0.h)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h3><ul>
+<li>分析Makefile编译过程，参见<a href="http://pan.baidu.com/s/1hs1IkIS" target="_blank" rel="noopener">课程笔记</a><ul>
+<li>分析结果：首先编译 <code>cpu/arm920t/start.s</code></li>
+<li>对于平台/开发板相关的每个目录，每个通用目录都使用它们各自的 Makefile生成相应的库</li>
+<li>前面生成的.o、.a文件按照<code>board/100ask24x0/config.mk</code> 文件中指定的代码段起始地址,<code>board/100ask24x0/u-boot.lds</code>链接脚本进行链接</li>
+<li>ELF格式的Uboot,后面Makefile还会将它转换为二进制格式</li>
+</ul>
+</li>
+</ul>
+<h2 id="启动过程分析"><a href="#启动过程分析" class="headerlink" title="启动过程分析"></a><font color="#fea304">启动过程分析</font></h2><h3 id="第1阶段"><a href="#第1阶段" class="headerlink" title="第1阶段"></a>第1阶段</h3><ul>
+<li>课程 : <strong>4.3 u-boot分析之源码第1阶段</strong></li>
+<li>通过分析Makefile文件，uboot第一个文件<code>cpu/arm920t/start.S</code>,该文件中主要是硬件设备初始化，</li>
+<li>将CPU的工作模式设为管理模式，关闭WATCHDOG, 设置FCLK、HCLK、PCLK的比例、关闭MMU、CACHE </li>
+<li>为加载Bootloader的第二阶段代码准备RAM空间，代码<code>board/100ask24x0/lowlevel_init.S</code></li>
+<li>复制Boootloader的第二阶段代码到RAM空间中</li>
+<li>设置好栈，跳转到第二阶段代码的C入口点，跳转之前，还要清除BSS段</li>
+</ul>
+<h3 id="第2阶段"><a href="#第2阶段" class="headerlink" title="第2阶段"></a>第2阶段</h3><ul>
+<li>课程 : <strong>4.4 u-boot分析之源码第2阶段</strong></li>
+<li>主要从<code>lib_arm/board.c</code>中的start_armboot函数开始, 此处需要添加流程图</li>
+</ul>
+<h2 id="Uboot命令"><a href="#Uboot命令" class="headerlink" title="Uboot命令"></a><font color="#fea304">Uboot命令</font></h2><h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><ul>
+<li>课程 : <strong>4.5 u-boot分析之u-boot命令实现</strong></li>
+<li>内核启动，也是通过Uboot命令来实现的。Uboot中的每个命令都通过<code>U_BOOT_CMD</code>宏来定义，格式如下 </li>
+<li><blockquote>
+<p>U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)</p>
+</blockquote>
+<ul>
+<li>name : 命名的名字，注意，它不是一个字符串（不要用双括号括起来）</li>
+<li>maxargs : 最大参数的个数</li>
+<li>repeatable : 命令是否可以重复，可重复是指运行一个命令后，下次敲回车即可再次运行</li>
+<li>command ：对应的函数指针，类型为<code>(*cmd)(struct cmd_tbl_s*,int,int,char*[])</code></li>
+<li>usage : 简短的使用说明，这是个字符串</li>
+<li>help : 较详细的使用说明，这是个字符串</li>
+</ul>
+</li>
+</ul>
+<h3 id="命令分析"><a href="#命令分析" class="headerlink" title="命令分析"></a>命令分析</h3><ul>
+<li>宏U_BOOT_CMD在<code>include、command.h</code>中定义，如下所示</li>
+</ul>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define U_BOOT_CMD(name,maxargs,rep,<span class="built_in">cmd</span>,usage,<span class="built_in">help</span>) \</span><br><span class="line">cmd_tbl_t __u_boot_cmd_##name Struct_Section = &#123;#name, maxargs, rep, <span class="built_in">cmd</span>, usage, <span class="built_in">help</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Struct_Section 在<code>include/command.h</code>中定义，如下所示 #define Struct_Section  <strong>attribute</strong> ((unused,section (“.u_boot_cmd”)))</p>
+</li>
+<li><p>宏U_BOOT_CMD扩展后如下所示</p>
+</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd_tbl_t __u_boot_cmd_bootm  __attribute__ ((unused,section (<span class="string">".u_boot_cmd"</span>))) = &#123;bootm,<span class="built_in">CFG_MAXARGS</span>,<span class="number">1</span>,do_bootm, <span class="string">"string1"</span> <span class="string">"string2 "</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于每个使用U_BOOT_CMD宏来定义个命令，其实都是在<code>.u_boot_cmd</code>段中定义一个cmd_tbl_t结构，链接脚本U-BOOT.lds中如下代码：</li>
+</ul>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">__u_boot_cmd_start = .;</span><br><span class="line">.u_boot_cmd : &#123; *(.u_boot_cmd) &#125;</span><br><span class="line">__u_boot_cmd_end = .;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>程序中就是根据命名的名字在内存段<code>_u_boot_cmd_start ~ _boot_cmd_end</code>找到他的cmd_tbl_t结构，然后调用它的函数,(请参考common/command.c中的<code>find_cmd</code>函数)</li>
+</ul>
+<h2 id="启动内核"><a href="#启动内核" class="headerlink" title="启动内核"></a><font color="#fea304">启动内核</font></h2><h3 id="分区介绍"><a href="#分区介绍" class="headerlink" title="分区介绍"></a>分区介绍</h3><ul>
+<li>课程 ：<strong>4.6 u-boot分析_uboot启动内核</strong></li>
+<li>Linux分区源代码中已固定，参见<code>include\configs\100ask24x0.h</code></li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">#def</span>ine MTDIDS_DEFAULT <span class="string">"nand0=nandflash0"</span></span><br><span class="line"><span class="number">#def</span>ine MTDPARTS_DEFAULT <span class="string">"mtdparts=nandflash0:256k@0(bootloader),"</span> \</span><br><span class="line">                            <span class="string">"128k(params),"</span> \</span><br><span class="line">                            <span class="string">"2m(kernel),"</span> \</span><br><span class="line">                            <span class="string">"-(root)"</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://www.wailian.work/images/2018/09/09/Uboot-01.jpg" alt="Uboot-01.jpg"></p>
+<h3 id="do-boot-do-bootm-linux-主要做什么"><a href="#do-boot-do-bootm-linux-主要做什么" class="headerlink" title="do_boot() do_bootm_linux()主要做什么"></a>do_boot() do_bootm_linux()主要做什么</h3><ul>
+<li>do_boot() 主要读取头部，移动内核至加载地址 </li>
+<li><blockquote>
+<p>uboot中的环境变量 bootcmd=nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0</p>
+</blockquote>
+<ul>
+<li>从nand读出内核，</li>
+<li>加载地址<code>0x30007FC0</code>  入口地址<code>0x30008000</code>      </li>
+</ul>
+</li>
+<li>do_bootm_linux() 启动内核</li>
+</ul>
+<h3 id="内核设置启动参数"><a href="#内核设置启动参数" class="headerlink" title="内核设置启动参数"></a>内核设置启动参数</h3><ul>
+<li>Uboot通过标记列表向内核传递参数，命令行标记的示例代码就是取自Uboot中的<code>setup_memory_tags、setup_commandline_tag</code>它们都是在<code>lib_arm/armlinux.c</code>中定义</li>
+<li>对于ARM架构的CPU，都是通过<code>lib_arm/armlinux.c</code>中的<code>do_bootm_limux</code>函数来启动内核。这个函数中，设置标记列表，最后通过<code>theKernel (0, bd-&gt;bi_arch_number, bd-&gt;bi_boot_params)</code>调用内核。<ul>
+<li>theKernel  指向内核存放的地址（ARM架构的CPU，通常是0x30008000）</li>
+<li>bd-bi_arch_number  前面’board_init’函数设置的机器类型ID</li>
+<li>bi_boot_paras  标记列表的开始地址     </li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="Mike wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎订阅我的公众号『程序手艺人』有趣有能量！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/底层驱动/" rel="tag"># 底层驱动</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/02/时刻复盘/" rel="next" title="时刻复盘">
+                <i class="fa fa-chevron-left"></i> 时刻复盘
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/18/Linux内核分析/" rel="prev" title="内核分析">
+                内核分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b9504e8fdb474a8" async = "async" ></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zOTYwNC8xNjEzMQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Mike" />
+            
+              <p class="site-author-name" itemprop="name">Mike</p>
+              <p class="site-description motion-element" itemprop="description">程序手艺人，有趣有能量!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wisezhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://processon.com" target="_blank" title="ProcessOn">
+                      
+                        <i class="fa fa-fw fa-futbol-o"></i>ProcessOn</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.pinterest.com/" target="_blank" title="Pinterest">
+                      
+                        <i class="fa fa-fw fa-file-photo-o"></i>Pinterest</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://icehe.me/" title="icehe" target="_blank">icehe</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置、编译、链接"><span class="nav-number">2.</span> <span class="nav-text">配置、编译、链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译Uboot"><span class="nav-number">2.1.</span> <span class="nav-text">编译Uboot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置过程"><span class="nav-number">2.2.</span> <span class="nav-text">配置过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程"><span class="nav-number">2.3.</span> <span class="nav-text">编译过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动过程分析"><span class="nav-number">3.</span> <span class="nav-text">启动过程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1阶段"><span class="nav-number">3.1.</span> <span class="nav-text">第1阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第2阶段"><span class="nav-number">3.2.</span> <span class="nav-text">第2阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Uboot命令"><span class="nav-number">4.</span> <span class="nav-text">Uboot命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令格式"><span class="nav-number">4.1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令分析"><span class="nav-number">4.2.</span> <span class="nav-text">命令分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动内核"><span class="nav-number">5.</span> <span class="nav-text">启动内核</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分区介绍"><span class="nav-number">5.1.</span> <span class="nav-text">分区介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#do-boot-do-bootm-linux-主要做什么"><span class="nav-number">5.2.</span> <span class="nav-text">do_boot() do_bootm_linux()主要做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核设置启动参数"><span class="nav-number">5.3.</span> <span class="nav-text">内核设置启动参数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mike</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("gsKVAawdCdYNfI1H4LE2Umpe-gzGzoHsz", "AbA67jTMdPl8Fan1mIpuElLQ");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
